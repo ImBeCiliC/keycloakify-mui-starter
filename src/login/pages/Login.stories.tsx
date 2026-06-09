@@ -12,28 +12,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const deLocale = {
-    currentLanguageTag: "de",
-    supported: [
-        { languageTag: "de", label: "Deutsch", url: "#" },
-        { languageTag: "en", label: "English", url: "#" }
-    ]
-};
-
-const enLocale = {
-    currentLanguageTag: "en",
-    supported: [
-        { languageTag: "de", label: "Deutsch", url: "#" },
-        { languageTag: "en", label: "English", url: "#" }
-    ]
-};
-
 export const Default: Story = {
-    render: () => <KcPageStory kcContext={{ locale: deLocale }} />
-};
-
-export const DefaultEnglish: Story = {
-    render: () => <KcPageStory kcContext={{ locale: enLocale }} />
+    render: () => <KcPageStory kcContext={{ locale: { currentLanguageTag: "de" } }} />
 };
 
 export const WithInvalidCredential: Story = {
