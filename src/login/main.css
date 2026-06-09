@@ -314,13 +314,12 @@ p button, .instruction button {
     margin-bottom: var(--kc-space-4);
 }
 
-/* Locale switcher styling: bottom-right inside the element box */
+/* Locale switcher: fixed top-right of screen */
 .kcLocaleMainClass {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  padding: 0 var(--kc-space-4) var(--kc-space-4);
-  box-sizing: border-box;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1200;
 }
 
 /* Style the MUI components within the locale menu */
@@ -428,11 +427,6 @@ a:hover {
   .kcFormSocialAccountListClass,
   .kcFormSocialAccountListGridClass {
     grid-template-columns: 1fr;
-  }
-
-  /* Locale menu stays inside padding and doesn’t overlap */
-  .kcLocaleMainClass {
-    right: var(--kc-space-3);
   }
 
   /* Username banner stacks items */

@@ -76,6 +76,15 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
     return (
         <div className={kcClsx("kcLoginClass")}>
+            {enabledLanguages.length > 1 && (
+                <div className={kcClsx("kcLocaleMainClass")} id="kc-locale">
+                    <LocaleMenu
+                        enabledLanguages={enabledLanguages}
+                        currentLanguage={currentLanguage}
+                        msgStr={msgStr}
+                    />
+                </div>
+            )}
             <div id="kc-header" className={kcClsx("kcHeaderClass")}>
                 <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
                     <img className="kcBrandLogoClass" src={bonprixLogoUrl} alt={msgStr("loginTitle", realm.displayName)} />
@@ -176,15 +185,6 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                             </div>
                         )}
                     </div>
-                    {enabledLanguages.length > 1 && (
-                        <div className={kcClsx("kcLocaleMainClass")} id="kc-locale">
-                            <LocaleMenu
-                                enabledLanguages={enabledLanguages}
-                                currentLanguage={currentLanguage}
-                                msgStr={msgStr}
-                            />
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
