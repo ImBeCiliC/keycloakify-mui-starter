@@ -16,6 +16,10 @@ export const Default: Story = {
     render: () => <KcPageStory kcContext={{ locale: { currentLanguageTag: "de" } }} />
 };
 
+export const English: Story = {
+    render: () => <KcPageStory kcContext={{ locale: { currentLanguageTag: "en" } }} />
+};
+
 export const WithInvalidCredential: Story = {
     render: () => (
         <KcPageStory

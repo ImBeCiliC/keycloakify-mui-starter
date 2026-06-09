@@ -139,7 +139,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
                         return node;
                     })()}
-                    <p className="kcPageSubtitleClass">Willkommen im bonprix Backoffice</p>
+                    <p className="kcPageSubtitleClass">{msg("loginSubtitle")}</p>
                 </header>
                 <div id="kc-content">
                     <div id="kc-content-wrapper">
