@@ -10,6 +10,7 @@ import type { KcContext } from "./KcContext";
 import { Alert } from "@mui/material";
 import { LocaleMenu } from "./helper-components/LocaleMenu.tsx";
 import LinearProgress from "@mui/material/LinearProgress";
+import bonprixLogoUrl from "./assets/bonprix-logo.svg";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -76,26 +77,27 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     return (
         <div className={kcClsx("kcLoginClass")}>
             <div id="kc-header" className={kcClsx("kcHeaderClass")}>
-                <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")} style={{ position: "relative" }}>
-                    {msg("loginTitleHtml", realm.displayNameHtml)}
-                    <LinearProgress
-                        id="jk-loading"
-                        sx={{
-                            display: "none",
-                            width: "100%",
-                            position: "absolute",
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            zIndex: 1400,
-                            pointerEvents: "none",
-                            bgcolor: "transparent",
-                            "&.MuiLinearProgress-root": { height: 4 },
-                        }}
-                    />
+                <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
+                    <img className="kcBrandLogoClass" src={bonprixLogoUrl} alt={msgStr("loginTitle", realm.displayName)} />
+                    <span className="kcBrandTextClass">Backoffice</span>
                 </div>
             </div>
             <div className={kcClsx("kcFormCardClass")}>
+                <LinearProgress
+                    id="jk-loading"
+                    sx={{
+                        display: "none",
+                        width: "100%",
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        zIndex: 1400,
+                        pointerEvents: "none",
+                        bgcolor: "transparent",
+                        "&.MuiLinearProgress-root": { height: 4 },
+                    }}
+                />
                 <header className={kcClsx("kcFormHeaderClass")}>
                     {(() => {
                         const node = !(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
@@ -128,6 +130,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
                         return node;
                     })()}
+                    <p className="kcPageSubtitleClass">Willkommen im bonprix Backoffice</p>
                 </header>
                 <div id="kc-content">
                     <div id="kc-content-wrapper">
