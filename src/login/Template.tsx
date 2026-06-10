@@ -11,6 +11,8 @@ import { Alert } from "@mui/material";
 import { LocaleMenu } from "./helper-components/LocaleMenu.tsx";
 import LinearProgress from "@mui/material/LinearProgress";
 import bonprixLogoUrl from "./assets/bonprix-logo.svg";
+import faviconLightUrl from "./assets/favicon-light.ico";
+import faviconDarkUrl from "./assets/favicon-dark.ico";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -36,7 +38,24 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     const { realm, auth, url, message, isAppInitiatedAction } = kcContext;
 
     useEffect(() => {
-        document.title = documentTitle ?? msgStr("loginTitle", realm.displayName);
+        document.title = documentTitle ?? `Backoffice ${msgStr("loginAccountTitle")}`;
+
+        // Favicons: light for light mode, dark for dark mode
+        const setFavicons = () => {
+            document.querySelectorAll("link[data-kc-favicon]").forEach(el => el.remove());
+            const addFavicon = (href: string, media: string) => {
+                const link = document.createElement("link");
+                link.rel = "icon";
+                link.type = "image/x-icon";
+                link.href = href;
+                link.media = media;
+                link.dataset.kcFavicon = "1";
+                document.head.appendChild(link);
+            };
+            addFavicon(faviconLightUrl, "(prefers-color-scheme: light)");
+            addFavicon(faviconDarkUrl, "(prefers-color-scheme: dark)");
+        };
+        setFavicons();
 
         const showLoader = () => {
             const el = document.getElementById("jk-loading");
