@@ -1,12 +1,12 @@
-import { TextField } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Fragment } from "react";
+import { clsx } from "keycloakify/tools/clsx";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { useScript } from "keycloakify/login/pages/LoginPasskeysConditionalAuthenticate.useScript";
-import type { PageProps } from "keycloakify/login/pages/PageProps";
-import { clsx } from "keycloakify/tools/clsx";
-import { Fragment } from "react";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
+import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 import "./LoginPasskeysConditionalAuthenticate.css";
 
 export default function LoginPasskeysConditionalAuthenticate(
@@ -62,7 +62,7 @@ export default function LoginPasskeysConditionalAuthenticate(
                 <input type="hidden" id="error" name="error" />
             </form>
 
-            <div className={kcClsx("kcFormGroupClass")} style={{ marginBottom: 0 }}>
+            <div className={kcClsx("kcFormGroupClass")} no-bottom-margin="true" style={{ marginBottom: 0 }}>
                 {authenticators !== undefined && Object.keys(authenticators).length !== 0 && (
                     <>
                         <form id="authn_select" className={kcClsx("kcFormClass")}>
@@ -78,19 +78,18 @@ export default function LoginPasskeysConditionalAuthenticate(
                                 <div className={kcClsx("kcFormClass")}>
                                     {authenticators.authenticators.map((authenticator, i) => (
                                         <div key={i} id={`kc-webauthn-authenticator-item-${i}`} className={kcClsx("kcSelectAuthListItemClass")}>
-                                                    <i
-                                                        className={clsx(
-                                                            (() => {
-                                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                                                const className = kcClsx(authenticator.transports.iconClass as any);
-                                                                if (className === authenticator.transports.iconClass) {
-                                                                    return kcClsx("kcWebAuthnDefaultIcon");
-                                                                }
-                                                                return className;
-                                                            })(),
-                                                            kcClsx("kcSelectAuthListItemIconPropertyClass")
-                                                        )}
-                                                    />
+                                            <i
+                                                className={clsx(
+                                                    (() => {
+                                                        const className = kcClsx(authenticator.transports.iconClass as any);
+                                                        if (className === authenticator.transports.iconClass) {
+                                                            return kcClsx("kcWebAuthnDefaultIcon");
+                                                        }
+                                                        return className;
+                                                    })(),
+                                                    kcClsx("kcSelectAuthListItemIconPropertyClass")
+                                                )}
+                                            />
                                             <div className={kcClsx("kcSelectAuthListItemBodyClass")}>
                                                 <div
                                                     id={`kc-webauthn-authenticator-label-${i}`}
@@ -136,10 +135,9 @@ export default function LoginPasskeysConditionalAuthenticate(
                                 style={{ display: "none" }}
                                 onSubmit={event => {
                                     try {
+                                        // @ts-expect-error
                                         event.target.login.disabled = true;
-                                    } catch {
-                                        // Ignored
-                                    }
+                                    } catch {}
 
                                     return true;
                                 }}

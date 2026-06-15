@@ -1,4 +1,14 @@
 /* Styling for Error page */
 
-/* Page-specific styles can be added here */
+#kc-error-message {
+  width: 100%;
+}
 
+#kc-error-message .instruction {
+  color: var(--kc-text-primary);
+}
+
+#backToApplication {
+  background-color: var(--kc-primary);
+  color: var(--kc-box-background);
+}

@@ -1,20 +1,20 @@
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { FormHelperText } from "@mui/material";
-import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
+import { useState } from "react";
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
+import { clsx } from "keycloakify/tools/clsx";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
-import { clsx } from "keycloakify/tools/clsx";
-import * as React from "react";
-import { useState } from "react";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import * as React from "react";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
+import { FormHelperText } from "@mui/material";
 import "./LoginPassword.css";
 
 export default function LoginPassword(props: PageProps<Extract<KcContext, { pageId: "login-password.ftl" }>, I18n>) {
@@ -25,7 +25,7 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
         classes
     });
 
-    const { url, messagesPerField } = kcContext;
+    const { realm, url, messagesPerField } = kcContext;
 
     const { msg, msgStr } = i18n;
 
@@ -108,6 +108,17 @@ export default function LoginPassword(props: PageProps<Extract<KcContext, { page
                                     </FormHelperText>
                                 )}
                             </FormControl>
+                        </div>
+                        <div className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}>
+                            <div id="kc-form-options" />
+                            <div className={kcClsx("kcFormOptionsWrapperClass")}>
+                                {realm.resetPasswordAllowed && (
+                                    <Button tabIndex={5} variant="text" href={url.loginResetCredentialsUrl}
+                                            sx={{textTransform: 'none'}}>
+                                        {msg("doForgotPassword")}
+                                    </Button>
+                                )}
+                            </div>
                         </div>
                         <div id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
                             <Button

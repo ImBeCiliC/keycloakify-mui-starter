@@ -13,7 +13,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    render: () => <KcPageStory />
+    render: () => <KcPageStory kcContext={{ locale: { currentLanguageTag: "de" } }} />
+};
+
+export const English: Story = {
+    render: () => <KcPageStory kcContext={{ locale: { currentLanguageTag: "en" } }} />
 };
 
 export const WithInvalidCredential: Story = {
@@ -47,6 +51,16 @@ export const WithoutRegistration: Story = {
         <KcPageStory
             kcContext={{
                 realm: { registrationAllowed: false }
+            }}
+        />
+    )
+};
+
+export const WithoutRememberMe: Story = {
+    render: () => (
+        <KcPageStory
+            kcContext={{
+                realm: { rememberMe: false }
             }}
         />
     )
@@ -322,6 +336,28 @@ export const WithMoreThanTwoSocialProviders: Story = {
                         }
                     ]
                 }
+            }}
+        />
+    )
+};
+export const WithSocialProvidersAndWithoutRememberMe: Story = {
+    render: args => (
+        <KcPageStory
+            {...args}
+            kcContext={{
+                social: {
+                    displayInfo: true,
+                    providers: [
+                        {
+                            loginUrl: "google",
+                            alias: "google",
+                            providerId: "google",
+                            displayName: "Google",
+                            iconClasses: "fa fa-google"
+                        }
+                    ]
+                },
+                realm: { rememberMe: false }
             }}
         />
     )

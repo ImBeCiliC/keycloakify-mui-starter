@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
@@ -89,7 +89,13 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                             {!usernameHidden && (
                                 <div className={kcClsx("kcFormGroupClass")}>
                                     <TextField
-                                        label={msg("username")}
+                                        label={
+                                            !realm.loginWithEmailAllowed
+                                                ? msg("username")
+                                                : !realm.registrationEmailAsUsername
+                                                  ? msg("usernameOrEmail")
+                                                  : msg("email")
+                                        }
                                         variant="outlined"
                                         tabIndex={2}
                                         id="username"
@@ -110,6 +116,22 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                                     />
                                 </div>
                             )}
+
+                            <div className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}>
+                                <div id="kc-form-options">
+                                    {realm.rememberMe && !usernameHidden && (
+                                        <FormGroup>
+                                            <FormControlLabel
+                                                tabIndex={3}
+                                                id="rememberMe"
+                                                name="rememberMe"
+                                                control={<Checkbox defaultChecked={!!login.rememberMe} />}
+                                                label={msg("rememberMe")}
+                                            />
+                                        </FormGroup>
+                                    )}
+                                </div>
+                            </div>
 
                             <div id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
                                 <Button

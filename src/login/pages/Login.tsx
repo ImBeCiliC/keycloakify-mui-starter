@@ -12,6 +12,11 @@ import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import "./login.css";
 
+const loginButtonSx = {
+    width: "100%",
+    textTransform: "none"
+};
+
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
 
@@ -20,7 +25,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
         classes
     });
 
-    const { social, realm, url, usernameHidden, login, auth, registrationDisabled, messagesPerField } = kcContext;
+    const { social, realm, url, usernameHidden, login, auth, messagesPerField } = kcContext;
 
     const { msg, msgStr } = i18n;
 
@@ -48,7 +53,6 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             classes={classes}
             displayMessage={!messagesPerField.existsError("username", "password")}
             headerNode={msg("loginAccountTitle")}
-            displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             socialProvidersNode={
                 <>
                     {realm.password && social?.providers !== undefined && social.providers.length !== 0 && (
@@ -61,7 +65,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 {social.providers.map((...[p, , providers]) => (
                                     <span key={p.alias}>
                                         <Button
-                                            sx={{ width: "100%" }}
+                                            sx={loginButtonSx}
                                             variant="outlined"
                                             id={`social-${p.alias}`}
                                             className={kcClsx(
@@ -99,7 +103,13 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             {!usernameHidden && (
                                 <div className={kcClsx("kcFormGroupClass")}>
                                     <TextField
-                                        label={msg("username")}
+                                        label={
+                                            !realm.loginWithEmailAllowed
+                                                ? msg("username")
+                                                : !realm.registrationEmailAsUsername
+                                                  ? msg("usernameOrEmail")
+                                                  : msg("email")
+                                        }
                                         variant="outlined"
                                         tabIndex={2}
                                         id="username"
@@ -185,7 +195,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                             <div id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
                                 <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
                                 <Button
-                                    sx={{ width: "100%" }}
+                                    sx={loginButtonSx}
                                     tabIndex={7}
                                     variant="contained"
                                     type="submit"

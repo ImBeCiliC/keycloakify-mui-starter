@@ -54,7 +54,7 @@ export default function LoginOauthGrant(props: PageProps<Extract<KcContext, { pa
                             {client.attributes.tosUri && (
                                 <>
                                     {msg("oauthGrantReview")}
-                                    <a href={client.attributes.tosUri} target="_blank" rel="noreferrer">
+                                    <a href={client.attributes.tosUri} target="_blank">
                                         {msg("oauthGrantTos")}
                                     </a>
                                 </>
@@ -62,7 +62,7 @@ export default function LoginOauthGrant(props: PageProps<Extract<KcContext, { pa
                             {client.attributes.policyUri && (
                                 <>
                                     {msg("oauthGrantReview")}
-                                    <a href={client.attributes.policyUri} target="_blank" rel="noreferrer">
+                                    <a href={client.attributes.policyUri} target="_blank">
                                         {msg("oauthGrantPolicy")}
                                     </a>
                                 </>
