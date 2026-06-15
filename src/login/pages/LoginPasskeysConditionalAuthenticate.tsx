@@ -62,7 +62,7 @@ export default function LoginPasskeysConditionalAuthenticate(
                 <input type="hidden" id="error" name="error" />
             </form>
 
-            <div className={kcClsx("kcFormGroupClass")} no-bottom-margin="true" style={{ marginBottom: 0 }}>
+            <div className={kcClsx("kcFormGroupClass")} style={{ marginBottom: 0 }}>
                 {authenticators !== undefined && Object.keys(authenticators).length !== 0 && (
                     <>
                         <form id="authn_select" className={kcClsx("kcFormClass")}>
@@ -78,18 +78,19 @@ export default function LoginPasskeysConditionalAuthenticate(
                                 <div className={kcClsx("kcFormClass")}>
                                     {authenticators.authenticators.map((authenticator, i) => (
                                         <div key={i} id={`kc-webauthn-authenticator-item-${i}`} className={kcClsx("kcSelectAuthListItemClass")}>
-                                            <i
-                                                className={clsx(
-                                                    (() => {
-                                                        const className = kcClsx(authenticator.transports.iconClass as any);
-                                                        if (className === authenticator.transports.iconClass) {
-                                                            return kcClsx("kcWebAuthnDefaultIcon");
-                                                        }
-                                                        return className;
-                                                    })(),
-                                                    kcClsx("kcSelectAuthListItemIconPropertyClass")
-                                                )}
-                                            />
+                                                    <i
+                                                        className={clsx(
+                                                            (() => {
+                                                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                                                const className = kcClsx(authenticator.transports.iconClass as any);
+                                                                if (className === authenticator.transports.iconClass) {
+                                                                    return kcClsx("kcWebAuthnDefaultIcon");
+                                                                }
+                                                                return className;
+                                                            })(),
+                                                            kcClsx("kcSelectAuthListItemIconPropertyClass")
+                                                        )}
+                                                    />
                                             <div className={kcClsx("kcSelectAuthListItemBodyClass")}>
                                                 <div
                                                     id={`kc-webauthn-authenticator-label-${i}`}
@@ -136,7 +137,9 @@ export default function LoginPasskeysConditionalAuthenticate(
                                 onSubmit={event => {
                                     try {
                                         event.target.login.disabled = true;
-                                    } catch {}
+                                    } catch {
+                                        // Ignored
+                                    }
 
                                     return true;
                                 }}

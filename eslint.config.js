@@ -43,6 +43,7 @@ export default typescriptEslint.config(
     files: ["**/*.stories.*"],
     rules: {
       "import/no-anonymous-default-export": "off",
+      "storybook/no-renderer-packages": "off",
     },
   },
 );

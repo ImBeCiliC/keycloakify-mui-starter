@@ -39,12 +39,14 @@ export default function Register(props: RegisterProps) {
     const [areTermsAccepted, setAreTermsAccepted] = useState(false);
 
     useLayoutEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any)["onSubmitRecaptcha"] = () => {
-            // @ts-expect-error
+            // @ts-expect-error - requestSubmit is not in all TS DOM types
             document.getElementById("kc-register-form").requestSubmit();
         };
 
         return () => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             delete (window as any)["onSubmitRecaptcha"];
         };
     }, []);
