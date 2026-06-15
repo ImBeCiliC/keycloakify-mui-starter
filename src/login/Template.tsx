@@ -10,9 +10,6 @@ import type { KcContext } from "./KcContext";
 import { Alert } from "@mui/material";
 import { LocaleMenu } from "./helper-components/LocaleMenu.tsx";
 import LinearProgress from "@mui/material/LinearProgress";
-import bonprixLogoUrl from "./assets/bonprix-logo.svg";
-import faviconLightUrl from "./assets/favicon-light.ico";
-import faviconDarkUrl from "./assets/favicon-dark.ico";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -38,24 +35,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     const { realm, auth, url, message, isAppInitiatedAction } = kcContext;
 
     useEffect(() => {
-        document.title = documentTitle ?? `Backoffice ${msgStr("loginAccountTitle")}`;
-
-        // Favicons: light for light mode, dark for dark mode
-        const setFavicons = () => {
-            document.querySelectorAll("link[data-kc-favicon]").forEach(el => el.remove());
-            const addFavicon = (href: string, media: string) => {
-                const link = document.createElement("link");
-                link.rel = "icon";
-                link.type = "image/x-icon";
-                link.href = href;
-                link.media = media;
-                link.dataset.kcFavicon = "1";
-                document.head.appendChild(link);
-            };
-            addFavicon(faviconLightUrl, "(prefers-color-scheme: light)");
-            addFavicon(faviconDarkUrl, "(prefers-color-scheme: dark)");
-        };
-        setFavicons();
+        document.title = documentTitle ?? msgStr("loginTitle", realm.displayName);
 
         const showLoader = () => {
             const el = document.getElementById("jk-loading");
@@ -95,37 +75,27 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
     return (
         <div className={kcClsx("kcLoginClass")}>
-            {enabledLanguages.length > 1 && (
-                <div className={kcClsx("kcLocaleMainClass")} id="kc-locale">
-                    <LocaleMenu
-                        enabledLanguages={enabledLanguages}
-                        currentLanguage={currentLanguage}
-                        msgStr={msgStr}
-                    />
-                </div>
-            )}
             <div id="kc-header" className={kcClsx("kcHeaderClass")}>
-                <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
-                    <img className="kcBrandLogoClass" src={bonprixLogoUrl} alt={msgStr("loginTitle", realm.displayName)} />
-                    <span className="kcBrandTextClass">Backoffice</span>
+                <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")} style={{ position: "relative" }}>
+                    {msg("loginTitleHtml", realm.displayNameHtml)}
+                    <LinearProgress
+                        id="jk-loading"
+                        sx={{
+                            display: "none",
+                            width: "100%",
+                            position: "absolute",
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            zIndex: 1400,
+                            pointerEvents: "none",
+                            bgcolor: "transparent",
+                            "&.MuiLinearProgress-root": { height: 4 },
+                        }}
+                    />
                 </div>
             </div>
             <div className={kcClsx("kcFormCardClass")}>
-                <LinearProgress
-                    id="jk-loading"
-                    sx={{
-                        display: "none",
-                        width: "100%",
-                        position: "absolute",
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        zIndex: 1400,
-                        pointerEvents: "none",
-                        bgcolor: "transparent",
-                        "&.MuiLinearProgress-root": { height: 4 },
-                    }}
-                />
                 <header className={kcClsx("kcFormHeaderClass")}>
                     {(() => {
                         const node = !(auth !== undefined && auth.showUsername && !auth.showResetCredentials) ? (
@@ -158,7 +128,6 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
                         return node;
                     })()}
-                    <p className="kcPageSubtitleClass">{msg("loginSubtitle")}</p>
                 </header>
                 <div id="kc-content">
                     <div id="kc-content-wrapper">
@@ -204,6 +173,15 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                             </div>
                         )}
                     </div>
+                    {enabledLanguages.length > 1 && (
+                        <div className={kcClsx("kcLocaleMainClass")} id="kc-locale">
+                            <LocaleMenu
+                                enabledLanguages={enabledLanguages}
+                                currentLanguage={currentLanguage}
+                                msgStr={msgStr}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

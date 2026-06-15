@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { clsx } from "keycloakify/tools/clsx";
+import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { clsx } from "keycloakify/tools/clsx";
+import { useState } from "react";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
-import Button from "@mui/material/Button";
-import { Checkbox, FormControlLabel, FormGroup, TextField } from "@mui/material";
 import "./LoginUsername.css";
 
 export default function LoginUsername(props: PageProps<Extract<KcContext, { pageId: "login-username.ftl" }>, I18n>) {
@@ -53,7 +53,6 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                                         <Button
                                             sx={{ width: "100%" }}
                                             variant="outlined"
-
                                             id={`social-${p.alias}`}
                                             className={kcClsx(
                                                 "kcFormSocialAccountListButtonClass",
@@ -61,10 +60,12 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                                             )}
                                             type="button"
                                             href={p.loginUrl}
-                                            startIcon={p.iconClasses && <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>}
+                                            startIcon={
+                                                p.iconClasses && <i className={clsx(kcClsx("kcCommonLogoIdP"), p.iconClasses)} aria-hidden="true"></i>
+                                            }
                                         >
-                                        {p.displayName}
-                                    </Button>
+                                            {p.displayName}
+                                        </Button>
                                     </span>
                                 ))}
                             </ul>
@@ -86,45 +87,29 @@ export default function LoginUsername(props: PageProps<Extract<KcContext, { page
                             method="post"
                         >
                             {!usernameHidden && (
-                            <div className={kcClsx("kcFormGroupClass")}>
-                                <TextField
-                                    label={!realm.loginWithEmailAllowed
-                                        ? msg("username")
-                                        : !realm.registrationEmailAsUsername
-                                            ? msg("usernameOrEmail")
-                                            : msg("email")}
-                                    variant="outlined"
-                                    tabIndex={2}
-                                    id="username"
-                                    defaultValue={login.username ?? ""}
-                                    type={"text"}
-                                    autoComplete={"username"}
-                                    autoFocus
-                                    aria-invalid={messagesPerField.existsError("username")}
-                                    className={kcClsx("kcInputClass")}
-                                    error={messagesPerField.existsError("username")}
-                                    helperText={messagesPerField.existsError("username") && (
-                                        <span id="input-error" className={kcClsx("kcInputErrorMessageClass")} aria-live="polite">
-                                            {messagesPerField.getFirstError("username")}
-                                        </span>
-                                    )}
-                                />
-                            </div>
-                        )}
-
-                            <div className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}>
-                                <div id="kc-form-options">
-                                    {realm.rememberMe && !usernameHidden && (
-                                        <FormGroup>
-                                            <FormControlLabel
-                                                tabIndex={3}
-                                                id="rememberMe"
-                                                name="rememberMe"
-                                                control={<Checkbox defaultChecked={!!login.rememberMe} />} label={msg("rememberMe")} />
-                                        </FormGroup>
-                                    )}
+                                <div className={kcClsx("kcFormGroupClass")}>
+                                    <TextField
+                                        label={msg("username")}
+                                        variant="outlined"
+                                        tabIndex={2}
+                                        id="username"
+                                        defaultValue={login.username ?? ""}
+                                        type={"text"}
+                                        autoComplete={"username"}
+                                        autoFocus
+                                        aria-invalid={messagesPerField.existsError("username")}
+                                        className={kcClsx("kcInputClass")}
+                                        error={messagesPerField.existsError("username")}
+                                        helperText={
+                                            messagesPerField.existsError("username") && (
+                                                <span id="input-error" className={kcClsx("kcInputErrorMessageClass")} aria-live="polite">
+                                                    {messagesPerField.getFirstError("username")}
+                                                </span>
+                                            )
+                                        }
+                                    />
                                 </div>
-                            </div>
+                            )}
 
                             <div id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
                                 <Button

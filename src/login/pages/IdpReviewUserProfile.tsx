@@ -1,14 +1,14 @@
-import type { JSX } from "keycloakify/tools/JSX";
-import { useState } from "react";
-import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
+import { Typography } from "@mui/material";
+import Button from "@mui/material/Button";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { UserProfileFormFieldsProps } from "keycloakify/login/UserProfileFormFieldsProps";
-import type { KcContext } from "../KcContext";
+import type { JSX } from "keycloakify/tools/JSX";
+import type { LazyOrNot } from "keycloakify/tools/LazyOrNot";
+import { useState } from "react";
 import type { I18n } from "../i18n";
-import Button from "@mui/material/Button";
+import type { KcContext } from "../KcContext";
 import "./IdpReviewUserProfile.css";
-import { Typography } from "@mui/material";
 
 type IdpReviewUserProfileProps = PageProps<Extract<KcContext, { pageId: "idp-review-user-profile.ftl" }>, I18n> & {
     UserProfileFormFields: LazyOrNot<(props: UserProfileFormFieldsProps) => JSX.Element>;
@@ -53,9 +53,6 @@ export default function IdpReviewUserProfile(props: IdpReviewUserProfileProps) {
                     {"*"}{  msg("requiredFields")}
                 </Typography>
                 <div className={kcClsx("kcFormGroupClass")}>
-                    <div id="kc-form-options" className={kcClsx("kcFormOptionsClass")}>
-                        <div className={kcClsx("kcFormOptionsWrapperClass")} />
-                    </div>
                     <div id="kc-form-buttons" className={kcClsx("kcFormButtonsClass")}>
                         <Button variant="contained"
                                 disabled={!isFomSubmittable}

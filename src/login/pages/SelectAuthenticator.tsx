@@ -1,14 +1,14 @@
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import KeyIcon from "@mui/icons-material/Key";
+import LockIcon from "@mui/icons-material/Lock";
+import PasswordIcon from "@mui/icons-material/Password";
+import SecurityIcon from "@mui/icons-material/Security";
+import SmartphoneIcon from "@mui/icons-material/Smartphone";
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import KeyIcon from "@mui/icons-material/Key";
-import PasswordIcon from "@mui/icons-material/Password";
-import SmartphoneIcon from "@mui/icons-material/Smartphone";
-import SecurityIcon from "@mui/icons-material/Security";
-import LockIcon from "@mui/icons-material/Lock";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./SelectAuthenticator.css";
 
 function getAuthenticatorIcon(iconCssClass: string | undefined) {
@@ -43,13 +43,9 @@ export default function SelectAuthenticator(props: PageProps<Extract<KcContext, 
             headerNode={msg("loginChooseAuthenticator")}
         >
             <form id="kc-select-credential-form" className={kcClsx("kcFormClass")} action={url.loginAction} method="post">
-                    <List className={kcClsx("kcSelectAuthListClass")}>
-
+                <List className={kcClsx("kcSelectAuthListClass")}>
                     {auth.authenticationSelections.map((authenticationSelection, i) => (
-                        <ListItem disablePadding
-                                  key={i}
-                                  className={kcClsx("kcSelectAuthListItemClass")}
-                                    >
+                        <ListItem disablePadding key={i} className={kcClsx("kcSelectAuthListItemClass")}>
                             <ListItemButton
                                 key={i}
                                 component="button"
@@ -58,21 +54,13 @@ export default function SelectAuthenticator(props: PageProps<Extract<KcContext, 
                                 value={authenticationSelection.authExecId}
                                 sx={{ borderRadius: 1, mb: 1 }}
                             >
-                                <ListItemIcon>
-                                    {getAuthenticatorIcon(authenticationSelection.iconCssClass)}
-                                </ListItemIcon>
+                                <ListItemIcon>{getAuthenticatorIcon(authenticationSelection.iconCssClass)}</ListItemIcon>
 
                                 <ListItemText
-                                    primary={
-                                        <Typography variant="body1" fontWeight="medium">
-                                            {advancedMsg(authenticationSelection.displayName)}
-                                        </Typography>
-                                    }
+                                    primary={<Typography variant="body1">{advancedMsg(authenticationSelection.displayName)}</Typography>}
                                     secondary={
                                         authenticationSelection.helpText ? (
-                                            <Typography variant="body2">
-                                                {advancedMsg(authenticationSelection.helpText)}
-                                            </Typography>
+                                            <Typography variant="body2">{advancedMsg(authenticationSelection.helpText)}</Typography>
                                         ) : null
                                     }
                                 />
@@ -81,9 +69,8 @@ export default function SelectAuthenticator(props: PageProps<Extract<KcContext, 
                             </ListItemButton>
                         </ListItem>
                     ))}
-            </List>
+                </List>
             </form>
         </Template>
     );
 }
-

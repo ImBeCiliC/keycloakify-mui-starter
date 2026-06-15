@@ -35,7 +35,7 @@ This starter is based on MUI (React) and uses both MUI components and classic pe
   - Benefit: change it once — applies to the whole login theme.
 
 - Page-/element‑specific styles: under `src/login/pages` you’ll find a dedicated `.css` file for (almost) every page, for example:
-  - `Login.css`, `Register.css`, `Error.css`, `Code.css`, `DeleteAccountConfirm.css`, `Info.css`, `Terms.css`, `UpdateEmail.css`, and more.
+  - `Login.css`, `Error.css`, `Code.css`, `DeleteAccountConfirm.css`, `Info.css`, `Terms.css`, `UpdateEmail.css`, and more.
   - Each file is imported by its corresponding React component (e.g. `import "./Login.css";`).
   - This lets you fine‑tune a single page/use‑case without affecting global styles.
 

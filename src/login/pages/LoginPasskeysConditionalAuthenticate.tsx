@@ -1,12 +1,12 @@
-import { Fragment } from "react";
-import { clsx } from "keycloakify/tools/clsx";
-import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { TextField } from "@mui/material";
+import Button from "@mui/material/Button";
 import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import { useScript } from "keycloakify/login/pages/LoginPasskeysConditionalAuthenticate.useScript";
+import type { PageProps } from "keycloakify/login/pages/PageProps";
+import { clsx } from "keycloakify/tools/clsx";
+import { Fragment } from "react";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
-import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
 import "./LoginPasskeysConditionalAuthenticate.css";
 
 export default function LoginPasskeysConditionalAuthenticate(
@@ -135,7 +135,6 @@ export default function LoginPasskeysConditionalAuthenticate(
                                 style={{ display: "none" }}
                                 onSubmit={event => {
                                     try {
-                                        // @ts-expect-error
                                         event.target.login.disabled = true;
                                     } catch {}
 
