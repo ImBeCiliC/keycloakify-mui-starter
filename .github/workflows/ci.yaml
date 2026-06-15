@@ -2,10 +2,10 @@ name: ci
 on:
     push:
         branches:
-            - main
+            - master
     pull_request:
         branches:
-            - main
+            - master
 
 jobs:
     test:
@@ -13,8 +13,14 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
+            - uses: actions/setup-java@v4
+              with:
+                  distribution: temurin
+                  java-version: "17"
             - uses: bahmutov/npm-install@v1
             - run: npm run build-keycloak-theme
+              env:
+                  JAVA_HOME: ${{ env.JAVA_HOME }}
 
     check_if_version_upgraded:
         name: Check if version upgrade
@@ -40,8 +46,14 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
+            - uses: actions/setup-java@v4
+              with:
+                  distribution: temurin
+                  java-version: "17"
             - uses: bahmutov/npm-install@v1
             - run: npm run build-keycloak-theme
+              env:
+                  JAVA_HOME: ${{ env.JAVA_HOME }}
             - uses: softprops/action-gh-release@v2
               with:
                   name: Release v${{ needs.check_if_version_upgraded.outputs.to_version }}

@@ -1,10 +1,13 @@
 :root {
-  /* Primary color hook (used optionally by your CSS); change here or via MUI theme */
-  --kc-primary: #219b00;
-  --kc-disbaled: #6b6b6b;
-  --kc-disbaled-1: #3f3f3f;
-  --kc-inactive: #8e918f;
-  --kc-hover: #ffffff;
+  --kc-primary: #111111;
+  --kc-disabled: #6b6b6b;
+  --kc-disabled-1: #3f3f3f;
+  --kc-disabled-border: #d9d9d9;
+  --kc-inactive: #666666;
+  --kc-hover: #111111;
+  --kc-text-primary: #111111;
+  --kc-text-info: #666666;
+  --kc-background: #f7f7f7;
   --kc-space-05: 0.125rem;
   --kc-space-1: 0.25rem;
   --kc-space-2: 0.5rem;
@@ -14,12 +17,12 @@
   --kc-space-6: 2rem;
   --kc-space-7: 2.5rem;
   --kc-space-8: 3rem;
-  --kc-max-card-width: 35rem; /* ~448px, close to Keycloak default */
-  --kc-header-background: #000000; /* Black header background */
-  --kc-page-title-color: #e3e3e3;
-  --kc-page-content-color: #e3e3e3;
-  --kc-box-background: #181818;
-  --kc-list-background: #202020;
+  --kc-max-card-width: 368px;
+  --kc-page-title-color: var(--kc-text-primary);
+  --kc-page-content-color: var(--kc-text-primary);
+  --kc-box-background: #ffffff;
+  --kc-list-background: #f7f7f7;
+  --kc-card-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.20), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 /* Load fonts from assets */
@@ -59,6 +62,7 @@
 .kcBodyClass {
   margin: 0;
   display: block;
+  background: var(--kc-background);
 }
 
 /* Overall login page container */
@@ -68,9 +72,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: var(--kc-space-4);
+  background: var(--kc-background);
+  color: var(--kc-text-primary);
+  padding: var(--kc-space-6) var(--kc-space-4);
+  box-sizing: border-box;
 }
 
-/* Header section: black strip with centered realm title, docked to the main box */
+/* Brand section above the floating login card */
 .kcHeaderClass {
   display: flex;
   justify-content: center;
@@ -82,53 +91,105 @@
   max-width: var(--kc-max-card-width);
   width: 100%;
   margin: 0 auto;
-  padding: var(--kc-space-8) var(--kc-space-4);
+  padding: 0;
   box-sizing: border-box;
-  background-color: var(--kc-header-background);
-  color: var(--kc-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: transparent;
+  color: var(--kc-text-primary);
   text-align: center;
   font-family: 'RalewayCustom', 'RobotoCustom', Arial, sans-serif;
   font-weight: 700;
-  font-size: 3rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
 }
 
-/* Card (main form wrapper) */
+.kcBrandLogoClass {
+  display: block;
+  width: 40px;
+  min-width: 32px;
+  height: 40px;
+  min-height: 32px;
+}
+
+.kcBrandTextClass {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: Roboto, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* Floating card (main form wrapper) */
 .kcFormCardClass {
-  width: 100%;
+  width: var(--kc-max-card-width);
   max-width: var(--kc-max-card-width);
   margin: 0 auto;
-  padding: 0 var(--kc-space-8) var(--kc-space-6) var(--kc-space-8);
+  padding: 0;
   box-sizing: border-box;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--kc-space-2);
   position: relative;
-    border-radius: 0 0 8px 8px;
-    background-color: var(--kc-box-background);
-    color: var(--kc-page-content-color);
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--kc-box-background);
+  color: var(--kc-page-content-color);
+  box-shadow: var(--kc-card-shadow);
 }
 
 /* Form header */
 .kcFormHeaderClass {
-  margin-bottom: var(--kc-space-4);
-  padding-top: calc(var(--kc-space-6));
+  display: flex;
+  flex-direction: column;
+  padding: var(--kc-space-4);
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 4px 4px 0 0;
 }
 
 #kc-page-title {
-    color: var(--kc-page-title-color);
+  color: rgba(0, 0, 0, 0.87);
+  font-family: Roboto, sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%;
+  letter-spacing: 0.25px;
+  margin: 0;
 }
 
 .kcFormHeaderClass h1, .kcFormHeaderClass h2, .kcFormHeaderClass h3 {
   margin-top: 0;
 }
 
+.kcPageSubtitleClass {
+  color: rgba(0, 0, 0, 0.60);
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 143%;
+  letter-spacing: 0.17px;
+  margin: 0;
+}
+
 /* Content area */
 #kc-content {
   display: block;
+  width: 100%;
 }
 
 #kc-content-wrapper {
   display: block;
+  width: 100%;
+  padding: 0 var(--kc-space-4) var(--kc-space-4);
+  box-sizing: border-box;
 }
 
 /* Content wrapper with a label + content columns on some screens */
@@ -141,7 +202,7 @@
 
 /* Form groups and fields */
 .kcFormGroupClass {
-  margin-bottom: var(--kc-space-4);
+  margin-bottom: var(--kc-space-3);
 }
 
 .kcInputClass {
@@ -253,10 +314,12 @@ p button, .instruction button {
     margin-bottom: var(--kc-space-4);
 }
 
-/* Locale switcher styling: bottom-right inside the element box */
+/* Locale switcher: fixed top-right of screen */
 .kcLocaleMainClass {
-    display: flex;
-    justify-content: flex-end;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1200;
 }
 
 /* Style the MUI components within the locale menu */
@@ -269,14 +332,14 @@ p button, .instruction button {
 .kcLocaleMainClass .MuiListItemButton-root {
   padding: var(--kc-space-2) var(--kc-space-3);
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: var(--kc-box-background);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 0;
   transition: all 0.2s ease;
 }
 
 .kcLocaleMainClass .MuiListItemButton-root:hover {
-  background-color: #ffffff;
+  background-color: var(--kc-box-background);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
@@ -326,39 +389,26 @@ a:hover {
 
 /* Mobile-first responsive adjustments to mimic Keycloak behavior */
 @media (max-width: 767px) {
-  /* Fill full device height and width, no background visible */
   .kcLoginClass {
-    align-items: stretch;
-    justify-content: flex-start;
-    padding: 0; /* remove gaps so only header + box are visible */
-    min-height: 100dvh; /* use dynamic viewport to avoid URL bar issues */
-    background: transparent; /* header + box will cover everything */
+    justify-content: center;
+    padding: var(--kc-space-5) var(--kc-space-3);
+    min-height: 100dvh;
   }
 
-  /* Make header span full width, reduce title size */
   .kcHeaderClass {
     width: 100%;
   }
+
   .kcHeaderWrapperClass {
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box; /* ensure padding doesn't overflow width */
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    font-size: 2rem;
-    padding: var(--kc-space-8) var(--kc-space-4);
+    max-width: var(--kc-max-card-width);
   }
 
-  /* Card fills width and remaining height; scroll internally if needed */
   .kcFormCardClass {
     width: 100%;
-    max-width: 100%;
+    max-width: min(var(--kc-max-card-width), calc(100vw - 1.5rem));
     box-sizing: border-box;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    padding: var(--kc-space-5) var(--kc-space-4);
-    flex: 1 1 auto; /* take all remaining vertical space */
-    overflow: auto; /* allow scrolling inside the box if content is tall */
+    overflow: auto;
   }
 
   /* Single column for any label/content layout */
@@ -377,11 +427,6 @@ a:hover {
   .kcFormSocialAccountListClass,
   .kcFormSocialAccountListGridClass {
     grid-template-columns: 1fr;
-  }
-
-  /* Locale menu stays inside padding and doesn’t overlap */
-  .kcLocaleMainClass {
-    right: var(--kc-space-3);
   }
 
   /* Username banner stacks items */
@@ -418,5 +463,3 @@ a:hover {
         gap: 0.5rem;
     }
 }
-
-

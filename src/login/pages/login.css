@@ -13,6 +13,26 @@
   align-items: center;
 }
 
+#kc-form,
+#kc-form-wrapper,
+#kc-form-login {
+  width: 100%;
+}
+
+#kc-form-login .MuiButton-contained {
+  background-color: var(--kc-primary);
+  color: var(--kc-box-background);
+}
+
+#kc-form-login .MuiButton-outlined {
+  border-color: var(--kc-primary);
+  color: var(--kc-primary);
+}
+
+#kc-form-login .MuiButton-text {
+  color: var(--kc-primary);
+}
+
 .kcFormOptionsWrapperClass {
   margin-left: auto;
 }

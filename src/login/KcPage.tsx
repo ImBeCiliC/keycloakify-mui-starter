@@ -65,18 +65,43 @@ function getCssVar(name: string, fallback: string) {
 const theme = createTheme({
     palette: {
         primary: {
-            main: getCssVar("--kc-primary", "#2e88e1").trim(),
+            main: getCssVar("--kc-primary", "#111111").trim(),
         },
     },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
+                    borderRadius: 4,
+                    textTransform: "none",
                     "&.Mui-disabled": {
-                        backgroundColor: "#219b00",
+                        backgroundColor: getCssVar("--kc-primary", "#111111").trim(),
                         color: "#ffffff",
                         opacity: 0.3,
                     }
+                },
+                contained: {
+                    backgroundColor: getCssVar("--kc-primary", "#111111").trim(),
+                    color: getCssVar("--kc-box-background", "#ffffff").trim(),
+                    boxShadow: "none",
+                    "&:hover": {
+                        backgroundColor: getCssVar("--kc-hover", "#111111").trim(),
+                        boxShadow: "none",
+                    },
+                },
+                outlined: {
+                    borderColor: getCssVar("--kc-primary", "#111111").trim(),
+                    color: getCssVar("--kc-primary", "#111111").trim(),
+                    "&:hover": {
+                        borderColor: getCssVar("--kc-hover", "#111111").trim(),
+                        backgroundColor: "rgba(0, 0, 0, 0.04)",
+                    },
+                },
+                text: {
+                    color: getCssVar("--kc-primary", "#111111").trim(),
+                    "&:hover": {
+                        backgroundColor: "rgba(0, 0, 0, 0.04)",
+                    },
                 },
             },
         },
@@ -99,7 +124,7 @@ const theme = createTheme({
                     backgroundColor: "transparent"
                 },
                 bar: {
-                    backgroundColor: getCssVar("--kc-primary", "#8e918f").trim()
+                    backgroundColor: getCssVar("--kc-primary", "#111111").trim()
                 },
             },
 
@@ -109,10 +134,10 @@ const theme = createTheme({
                 root: {
                     color: getCssVar("--kc-inactive", "#8e918f").trim(),
                     "&.Mui-focused": {
-                        color: getCssVar("--kc-primary", "#2e88e1").trim(),
+                        color: getCssVar("--kc-primary", "#111111").trim(),
                     },
                     "&.Mui-disabled": {
-                        color: getCssVar("--kc-disabled-color-1", "#3f3f3f").trim(),
+                        color: getCssVar("--kc-disabled-1", "#3f3f3f").trim(),
                     },
                 },
             },
@@ -120,40 +145,33 @@ const theme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    // Textfarbe
                     "& .MuiInputBase-input": {
-                        color: getCssVar("--kc-inactive", "#8e918f").trim(),
+                        color: getCssVar("--kc-text-primary", "#111111").trim(),
                     },
                     "&.Mui-focused .MuiInputBase-input": {
-                        color: getCssVar("--kc-primary", "#2e88e1").trim(),
+                        color: getCssVar("--kc-text-primary", "#111111").trim(),
                     },
-                    // Placeholder
                     "& input::placeholder": {
                         color: getCssVar("--kc-inactive", "#8e918f").trim(),
                         opacity: 1,
                     },
-                    // Border
                     "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: getCssVar("--kc-inactive", "#8e918f").trim(),
+                        borderColor: getCssVar("--kc-disabled-border", "#d9d9d9").trim(),
                     },
                     "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: getCssVar("--kc-hover", "#ffffff").trim(),
+                        borderColor: getCssVar("--kc-hover", "#111111").trim(),
                     },
                     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: getCssVar("--kc-primary", "#2e88e1").trim(),
+                        borderColor: getCssVar("--kc-primary", "#111111").trim(),
                     },
-
-                    // === Disabled ===
                     "&.Mui-disabled .MuiInputBase-input": {
                         color: getCssVar("--kc-disabled", "#6b6b6b").trim(),
                         WebkitTextFillColor: getCssVar("--kc-disabled", "#6b6b6b").trim(),
                         cursor: "not-allowed",
                     },
                     "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
-                        borderColor: getCssVar("--kc-disabled-border", "#3f3f3f").trim(),
+                        borderColor: getCssVar("--kc-disabled-border", "#d9d9d9").trim(),
                     },
-
-                    // EndAdornment-Icon - Password only
                     "&.MuiOutlinedInput-root": {
                         "& .MuiInputAdornment-root.MuiInputAdornment-positionEnd .MuiIconButton-root .MuiSvgIcon-root":
                             {
@@ -166,17 +184,13 @@ const theme = createTheme({
         MuiCheckbox: {
             styleOverrides: {
                 root: {
-                    // unchecked color
                     color: getCssVar("--kc-inactive", "#8e918f").trim(),
-                    // make the svg inherit color from the root
                     "& .MuiSvgIcon-root": {
                         color: "inherit",
                     },
-                    // checked -> primary
                     "&.Mui-checked": {
-                        color: getCssVar("--kc-primary", "#2e88e1").trim(),
+                        color: getCssVar("--kc-primary", "#111111").trim(),
                     },
-                    // ensure svg also inherits when checked (defensive)
                     "&.Mui-checked .MuiSvgIcon-root": {
                         color: "inherit",
                     },
@@ -184,18 +198,15 @@ const theme = createTheme({
             },
         },
 
-        /* Radio */
         MuiRadio: {
             styleOverrides: {
                 root: {
-                    // unchecked color
                     color: getCssVar("--kc-inactive", "#8e918f").trim(),
                     "& .MuiSvgIcon-root": {
                         color: "inherit",
                     },
-                    // checked -> primary
                     "&.Mui-checked": {
-                        color: getCssVar("--kc-primary", "#2e88e1").trim(),
+                        color: getCssVar("--kc-primary", "#111111").trim(),
                     },
                     "&.Mui-checked .MuiSvgIcon-root": {
                         color: "inherit",
@@ -208,11 +219,11 @@ const theme = createTheme({
         MuiListItemButton: {
             styleOverrides: {
                 root: {
-                    backgroundColor: getCssVar("--kc-box-background", "#181818"),
-                    color: getCssVar("--kc-inactive", "#8e918f").trim(),
+                    backgroundColor: getCssVar("--kc-box-background", "#ffffff"),
+                    color: getCssVar("--kc-text-primary", "#111111").trim(),
                     "&:hover, &.Mui-focusVisible, &:focus": {
-                        color: getCssVar("--kc-page-content-color", "#8e918f").trim(),
-                        borderColor: getCssVar("--kc-inactive", "#8e918f"),
+                        color: getCssVar("--kc-page-content-color", "#111111").trim(),
+                        borderColor: getCssVar("--kc-disabled-border", "#d9d9d9"),
                     },
                 },
             },
@@ -224,7 +235,7 @@ const theme = createTheme({
                 root: {
                     color: getCssVar("--kc-inactive", "#8e918f").trim(),
                     ".MuiListItemButton-root:hover &": {
-                        color: getCssVar("--kc-page-content-color", "#8e918f").trim(),
+                        color: getCssVar("--kc-page-content-color", "#111111").trim(),
                     },
                 },
             },
@@ -235,9 +246,9 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     "&.MuiMenu-paper": {
-                        backgroundColor: getCssVar("--kc-box-background", "#181818"),
-                        border: `1px solid ${getCssVar("--kc-inactive", "#8e918f").trim()}`,
-                        boxShadow: "none",
+                        backgroundColor: getCssVar("--kc-box-background", "#ffffff"),
+                        border: `1px solid ${getCssVar("--kc-disabled-border", "#d9d9d9").trim()}`,
+                        boxShadow: getCssVar("--kc-card-shadow", "0 5px 5px -3px rgba(0, 0, 0, 0.20), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12)"),
                     },
                 },
             },
@@ -247,15 +258,15 @@ const theme = createTheme({
         MuiMenuItem: {
             styleOverrides: {
                 root: {
-                    backgroundColor: getCssVar("--kc-box-background", "#181818"),
-                    color: getCssVar("--kc-inactive", "#8e918f").trim(),
+                    backgroundColor: getCssVar("--kc-box-background", "#ffffff"),
+                    color: getCssVar("--kc-text-primary", "#111111").trim(),
                     "&:hover": {
-                        color: getCssVar("--kc-page-content-color", "#8e918f").trim(),
-                        backgroundColor: getCssVar("--kc-box-background", "#181818"),
+                        color: getCssVar("--kc-page-content-color", "#111111").trim(),
+                        backgroundColor: getCssVar("--kc-list-background", "#f7f7f7"),
                     },
                     "&.Mui-selected": {
-                        color: getCssVar("--kc-primary", "#2e88e1").trim(),
-                        backgroundColor: getCssVar("--kc-box-background", "#181818"),
+                        color: getCssVar("--kc-primary", "#111111").trim(),
+                        backgroundColor: getCssVar("--kc-list-background", "#f7f7f7"),
                     },
                 },
             },
@@ -264,7 +275,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     "&.kcRecoveryCodesList": {
-                        backgroundColor: getCssVar("--kc-list-background", "#202020").trim(),
+                        backgroundColor: getCssVar("--kc-list-background", "#f7f7f7").trim(),
                         borderRadius: "4px",
                         padding: "1rem",
                     },
